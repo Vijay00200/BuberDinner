@@ -11,8 +11,8 @@
   "profiles": {
     "BuberDinner.Api": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "dotnetRunMessages": false,
+      "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7193;http://localhost:5292",
       "environmentVariables": {

@@ -1,6 +1,8 @@
 #nullable enable
 
 using System.Diagnostics;
+using BuberDinner.Api.Common.Http;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
@@ -26,7 +28,7 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
 
-    
+
     /// <inheritdoc />
     public override ProblemDetails CreateProblemDetails(
         HttpContext httpContext,
@@ -101,7 +103,11 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        problemDetails.Extensions.Add("Customproperty","some custom value");
+        var errors = httpContext?.Items[HttpContextItemKey.Errors] as List<Error>;
+        if (errors is not null)
+        {
+            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+        }
 
     }
 }

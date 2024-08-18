@@ -1,5 +1,7 @@
 
 using BuberDinner.Application.Services.Authentication;
+using BuberDinner.Application.Services.Authentication.Commands;
+using BuberDinner.Application.Services.Authentication.Queries;
 using BuberDinner.Contracts.Authentication;
 using BuberDinner.Domain.Common.Errors;
 using ErrorOr;
@@ -12,17 +14,18 @@ namespace BuberDinner.Api.Controllers;
 public class AuthenticationController : ApiController
 {
 
-    private IAuthenticationService _authenticationService;
-
-    public AuthenticationController(IAuthenticationService authenticationService)
+    private IAuthenticationCommandService _authenticationCommandService;
+    private IAuthenticationQueryService _authenticationQueryService;
+    public AuthenticationController(IAuthenticationCommandService authenticationCommandService, IAuthenticationQueryService authenticationQueryService)
     {
-        _authenticationService = authenticationService;
+        _authenticationCommandService = authenticationCommandService;
+        _authenticationQueryService = authenticationQueryService;
     }
 
     [HttpPost("register")]
     public IActionResult Register(RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> authResult = _authenticationService.Register(request.FirstName,
+        ErrorOr<AuthenticationResult> authResult = _authenticationCommandService.Register(request.FirstName,
                                                                                    request.LastName,
                                                                                    request.Email,
                                                                                    request.Password);
@@ -59,9 +62,9 @@ public class AuthenticationController : ApiController
     [HttpPost("login")]
     public IActionResult Login(LoginRequest request)
     {
-        var authResult = _authenticationService.Login(request.Email, request.Password);
+        var authResult = _authenticationQueryService.Login(request.Email, request.Password);
 
-        if(authResult.IsError && authResult.FirstError == Errors.Authentication.InvalidCredentials)
+        if (authResult.IsError && authResult.FirstError == Errors.Authentication.InvalidCredentials)
         {
             return Problem(
                 statusCode: StatusCodes.Status401Unauthorized,

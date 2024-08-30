@@ -4,24 +4,19 @@ using BuberDinner.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-    // Add services to the container.
     builder.Services
-            .AddPresentation()
-            .AddApplication()
-            .AddInfrastructure(builder.Configuration);
-    // builder.Services.AddControllers(opt=> opt.Filters.Add<ErrorHandlingFilterAttribute>());
-    
+        .AddPresentation()
+        .AddApplication()
+        .AddInfrastructure(builder.Configuration);
 }
-
 
 var app = builder.Build();
 {
-    // app.UseMiddleware<ErrorHandlingMiddleware>();
     app.UseExceptionHandler("/error");
+
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
-
     app.Run();
 }

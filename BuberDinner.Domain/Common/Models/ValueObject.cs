@@ -14,7 +14,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
         var valueObject = (ValueObject)obj;
 
         return GetEqualityComponents()
-        .SequenceEqual(valueObject.GetEqualityComponents());
+            .SequenceEqual(valueObject.GetEqualityComponents());
     }
 
     public static bool operator ==(ValueObject left, ValueObject right)
@@ -30,8 +30,8 @@ public abstract class ValueObject : IEquatable<ValueObject>
     public override int GetHashCode()
     {
         return GetEqualityComponents()
-                .Select(x => x?.GetHashCode() ?? 0)
-                .Aggregate((x, y) => x ^ y);
+            .Select(x => x?.GetHashCode() ?? 0)
+            .Aggregate((x, y) => x ^ y);
     }
 
     public bool Equals(ValueObject? other)

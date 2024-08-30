@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BuberDinner.Api.Controllers
+namespace BuberDinner.Api.Controllers;
+
+public class ErrorsController : ControllerBase
 {
-    public class ErrorsController : ControllerBase
+    [Route("/error")]
+    public IActionResult Error()
     {
-        [Route("/error")]
-        public IActionResult Error()
-        {
-            return Problem();
-        }
+        Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+        return Problem();
     }
 }

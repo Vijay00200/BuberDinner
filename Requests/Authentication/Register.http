@@ -1,11 +1,11 @@
-@host=https://localhost:7193
+@host=http://localhost:5179
 
 POST {{host}}/auth/register
 Content-Type: application/json
 
 {
-    "firstName" : "Vijay",
-    "lastName"  : "Kumar",
-    "email"     : "vijay.kumar00200@gmail.com",
-    "password"  : "Reyaansh@2024"
+    "firstName": "Amiko",
+    "lastName": "Dark",
+    "email": "amichai@mantinband.com",
+    "password": "Amiko1232!"
 }

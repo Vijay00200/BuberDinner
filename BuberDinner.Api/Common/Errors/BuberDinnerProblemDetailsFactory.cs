@@ -1,35 +1,25 @@
-#nullable enable
-
 using System.Diagnostics;
+
 using BuberDinner.Api.Common.Http;
+
 using ErrorOr;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 
-namespace Microsoft.AspNetCore.Mvc.Infrastructure;
+namespace BuberDinner.Api.Common.Errors;
 
-/// <summary>
-/// The `DefaultProblemDetailsFactory` is a concrete implementation of the `ProblemDetailsFactory` abstract class.
-/// It provides methods to create instances of `ProblemDetails` and `ValidationProblemDetails` with default settings.
-/// This class uses the provided `ApiBehaviorOptions` for client error mapping and an optional custom configuration action to further customize the problem details.
-/// </summary>
 public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
 {
     private readonly ApiBehaviorOptions _options;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BuberDinnerProblemDetailsFactory"/> class.
-    /// </summary>
-    /// <param name="options">The options for API behavior.</param>
-    /// <param name="problemDetailsOptions">The options for customizing problem details.</param>
-    public BuberDinnerProblemDetailsFactory(
-        IOptions<ApiBehaviorOptions> options)
+    public BuberDinnerProblemDetailsFactory(IOptions<ApiBehaviorOptions> options)
     {
         _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
     }
 
-
-    /// <inheritdoc />
     public override ProblemDetails CreateProblemDetails(
         HttpContext httpContext,
         int? statusCode = null,
@@ -54,7 +44,6 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
         return problemDetails;
     }
 
-    /// <inheritdoc />
     public override ValidationProblemDetails CreateValidationProblemDetails(
         HttpContext httpContext,
         ModelStateDictionary modelStateDictionary,
@@ -64,7 +53,10 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
         string? detail = null,
         string? instance = null)
     {
-        ArgumentNullException.ThrowIfNull(modelStateDictionary);
+        if (modelStateDictionary == null)
+        {
+            throw new ArgumentNullException(nameof(modelStateDictionary));
+        }
 
         statusCode ??= 400;
 
@@ -103,11 +95,11 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
             problemDetails.Extensions["traceId"] = traceId;
         }
 
-        var errors = httpContext?.Items[HttpContextItemKey.Errors] as List<Error>;
+        var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
+
         if (errors is not null)
         {
             problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
         }
-
     }
 }

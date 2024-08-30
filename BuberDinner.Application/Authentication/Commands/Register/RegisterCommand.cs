@@ -1,4 +1,4 @@
-using BuberDinner.Application.Services.Authentication;
+using BuberDinner.Application.Authentication.Common;
 using ErrorOr;
 using MediatR;
 
@@ -8,5 +8,4 @@ public record RegisterCommand(
     string FirstName,
     string LastName,
     string Email,
-    string Password
-) : IRequest<ErrorOr<AuthenticationResult>>;
+    string Password) : IRequest<ErrorOr<AuthenticationResult>>;

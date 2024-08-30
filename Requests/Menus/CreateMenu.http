@@ -1,0 +1,14 @@
+@host=http://localhost:5179
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYWQwODA2OC01OTlmLTQ4OTAtOTliMS1mYmFhYjY0ZjQ2MjciLCJnaXZlbl9uYW1lIjoiQW1pa28iLCJmYW1pbHlfbmFtZSI6IkRhcmsiLCJqdGkiOiIwZDg5ZTI3OS1iNWU3LTQzM2QtOWVjMi04MjNlMzg3NzhiMzYiLCJleHAiOjE3MjUwMzU0NTUsImlzcyI6IkJ1YmVyRGlubmVyIiwiYXVkIjoiQnViZXJEaW5uZXIifQ.2ok70SBhS-utk1yG1ZfWIKFy570xJg9FH5sIevOieno
+@hostId=asdf
+
+POST {{host}}/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "",
+    "description": "",
+    "sections": [
+    ]
+}

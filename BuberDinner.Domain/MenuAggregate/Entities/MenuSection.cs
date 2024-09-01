@@ -6,8 +6,8 @@ namespace BuberDinner.Domain.MenuAggregate.Entities;
 public sealed class MenuSection : Entity<MenuSectionId>
 {
     private readonly List<MenuItem> _items;
-    public string Name { get; }
-    public string Description { get; }
+    public string Name { get; private set; }
+    public string Description { get; private set; }
 
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
 
@@ -27,4 +27,10 @@ public sealed class MenuSection : Entity<MenuSectionId>
         // TODO: enforce invariants
         return new MenuSection(name, description, items ?? new());
     }
+
+#pragma warning disable CS8618
+    private MenuSection()
+    {
+    }
+#pragma warning restore CS8618
 }

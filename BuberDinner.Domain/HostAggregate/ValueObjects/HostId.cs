@@ -10,7 +10,7 @@ public sealed class HostId : ValueObject
         Value = value;
     }
 
-    public string Value { get; }
+    public string Value { get; private set; }
 
     public static HostId Create(UserId userId)
     {

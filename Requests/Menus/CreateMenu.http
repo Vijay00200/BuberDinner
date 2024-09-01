@@ -1,5 +1,5 @@
 @host=http://localhost:5179
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyYWQwODA2OC01OTlmLTQ4OTAtOTliMS1mYmFhYjY0ZjQ2MjciLCJnaXZlbl9uYW1lIjoiQW1pa28iLCJmYW1pbHlfbmFtZSI6IkRhcmsiLCJqdGkiOiIwZDg5ZTI3OS1iNWU3LTQzM2QtOWVjMi04MjNlMzg3NzhiMzYiLCJleHAiOjE3MjUwMzU0NTUsImlzcyI6IkJ1YmVyRGlubmVyIiwiYXVkIjoiQnViZXJEaW5uZXIifQ.2ok70SBhS-utk1yG1ZfWIKFy570xJg9FH5sIevOieno
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MzBhNjAxNi1kZDRlLTQxMTEtYTY4YS0yMmU2ZWJlMjFjNzIiLCJnaXZlbl9uYW1lIjoiQW1pa28iLCJmYW1pbHlfbmFtZSI6IkRhcmsiLCJqdGkiOiJhZTk1NGM4OC0xMTM3LTRlNjAtOGE0Ny05ZjU4ZWJjNTg4MzkiLCJleHAiOjE3MjUxMTMxNzUsImlzcyI6IkJ1YmVyRGlubmVyIiwiYXVkIjoiQnViZXJEaW5uZXIifQ.LPBQw2CzY160kSPskNdYRr4Q1yXTqrsGEFoU_DvKGXk
 @hostId=asdf
 
 POST {{host}}/hosts/{{hostId}}/menus
@@ -7,8 +7,18 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "name": "",
-    "description": "",
+    "name": "Yummy Menu",
+    "description": "A menu with yummy food",
     "sections": [
+        {
+            "name": "Appetizers",
+            "description": "Starters",
+            "items": [
+                {
+                    "name": "Fried Pickles",
+                    "description": "Deep fried pickles"
+                }
+            ]
+        }
     ]
 }

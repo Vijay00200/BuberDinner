@@ -9,12 +9,18 @@ public sealed class MenuSectionId : ValueObject
         Value = value;
     }
 
-    public Guid Value { get; }
+    public Guid Value { get; private set; }
 
     public static MenuSectionId CreateUnique()
     {
         // TODO: enforce invariants
         return new MenuSectionId(Guid.NewGuid());
+    }
+
+    public static MenuSectionId Create(Guid value)
+    {
+        // TODO: enforce invariants
+        return new MenuSectionId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()

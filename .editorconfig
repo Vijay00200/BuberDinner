@@ -397,3 +397,6 @@ dotnet_diagnostic.SA1118.severity = none
 
 # SA1601: Partial elements should be documented
 dotnet_diagnostic.SA1601.severity = none
+
+[*/Migrations/*]
+generated_code = true
